@@ -44,6 +44,8 @@ public class AccountWindow extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        accNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,6 +85,14 @@ public class AccountWindow extends javax.swing.JFrame {
         jButton4.setText("Profile");
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Account Number");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+
+        accNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        accNumber.setText("00000000");
+        jPanel1.add(accNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
@@ -94,7 +104,7 @@ public class AccountWindow extends javax.swing.JFrame {
     
     private void loadUserData() {
         try (Connection conn = DatabaseCon.getConnection()) {
-            String sql = "SELECT first_name, balance FROM users WHERE username = ?";
+            String sql = "SELECT first_name, balance ,acc_no FROM users WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, currentUsername);
             ResultSet rs = stmt.executeQuery();
@@ -102,8 +112,10 @@ public class AccountWindow extends javax.swing.JFrame {
             if (rs.next()) {
                 String name = rs.getString("first_name");
                 float balance = rs.getFloat("balance");
-
+                String account_num = rs.getString("acc_no");
+                
                 user.setText(name);
+                accNumber.setText(account_num);
                 AccBal.setText("Rs. " + balance);
             }
 
@@ -123,10 +135,12 @@ public class AccountWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AccBal;
+    private javax.swing.JLabel accNumber;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
