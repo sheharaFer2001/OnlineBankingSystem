@@ -151,6 +151,8 @@ public class loginWindow extends javax.swing.JFrame {
             if (storedPassword.equals(Password)) {
                 JOptionPane.showMessageDialog(this, "Login successful. Welcome " + name + "!");
                 // Proceed to dashboard or next step
+                new AccountWindow(Username).setVisible(true);
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect password.");
             }
