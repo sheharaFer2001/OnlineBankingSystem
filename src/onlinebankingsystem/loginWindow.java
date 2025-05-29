@@ -83,6 +83,11 @@ public class loginWindow extends javax.swing.JFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 510, -1, 20));
 
         createNewButton.setText("Create New Account");
+        createNewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNewButtonActionPerformed(evt);
+            }
+        });
         jPanel2.add(createNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 510, -1, -1));
 
         forgotPasswordButton.setText("Forgot Password?");
@@ -172,6 +177,11 @@ public class loginWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
+    private void createNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewButtonActionPerformed
+        new newaccountwindow().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_createNewButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,7 +194,9 @@ public class loginWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new loginWindow().setVisible(true);
+                
             }
         });
     }

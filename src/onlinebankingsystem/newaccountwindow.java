@@ -4,6 +4,13 @@
  */
 package onlinebankingsystem;
 
+
+import java.sql.*;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Shehara PC
@@ -30,9 +37,9 @@ public class newaccountwindow extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         first_name = new javax.swing.JTextField();
         last_name = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        ID = new javax.swing.JTextField();
+        phn_num = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -45,15 +52,14 @@ public class newaccountwindow extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        address = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        branch = new javax.swing.JComboBox<>();
+        year = new javax.swing.JComboBox<>();
+        day = new javax.swing.JComboBox<>();
+        month = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,9 +68,9 @@ public class newaccountwindow extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 210, -1));
         jPanel2.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 210, -1));
-        jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 210, -1));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 210, -1));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 210, -1));
+        jPanel2.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 210, -1));
+        jPanel2.add(phn_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 210, -1));
+        jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 210, -1));
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         jLabel5.setText("National Id/ Passport Number");
@@ -103,28 +109,28 @@ public class newaccountwindow extends javax.swing.JFrame {
         jLabel11.setText("Email");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        address.setColumns(20);
+        address.setRows(5);
+        jScrollPane1.setViewportView(address);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
 
         jLabel12.setText("Address");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 160, -1));
+        branch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(branch, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 160, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", " " }));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 60, -1));
+        year.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", " " }));
+        jPanel2.add(year, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 60, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 50, -1));
+        day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        jPanel2.add(day, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 50, -1));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        jPanel2.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 80, -1));
+        month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        jPanel2.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 80, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +147,105 @@ public class newaccountwindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+        String firstName = first_name.getText();
+        String lastName = last_name.getText();
+        String id = ID.getText();
+        String number = phn_num.getText();
+        String Email = email.getText();
+        String Address = address.getText();
+
+        String Day = (String) day.getSelectedItem();
+        String MonthName = (String) month.getSelectedItem();
+        String Year = (String) year.getSelectedItem();
+        
+        String month;
+        
+        switch (MonthName) {
+            case "January":
+                month = "01";
+                break;
+            case "February":
+                month = "02";
+                break;
+            case "March":
+                month = "03";
+                break;
+            case "April":
+                month = "04";
+                break;
+            case "May":
+                month = "05";
+                break;
+            case "June":
+                month = "06";
+                break;
+            case "July":
+                month = "07";
+                break;
+            case "August":
+                month = "08";
+                break;
+            case "September":
+                month = "09";
+                break;
+            case "October":
+                month = "10";
+                break;
+            case "November":
+                month = "11";
+                break;
+            case "December":
+                month = "12";
+                break;
+            default:
+                month = "00"; 
+        
+        }
+        
+        
+        String b_day =  Year + "-" + month + "-" + Day;
+        
+        java.sql.Date b_day_DB = java.sql.Date.valueOf(b_day);
+        
+        try (Connection conn = DatabaseCon.getConnection()) {
+            if (conn == null) {
+                JOptionPane.showMessageDialog(this, "Failed to connect to the database.");
+                return;
+            }
+            
+            String sql = "Insert into users (first_name, last_name, nic, phone_number, email, address, DOB) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            
+            stmt.setString(1, firstName);
+            stmt.setString(2, lastName);
+            stmt.setString(3, id);
+            stmt.setString(4, number);
+            stmt.setString(5, Email);
+            stmt.setString(6, Address);
+            stmt.setDate(7, b_day_DB);
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "User added successfully.");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(loginWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "An error occurred while connecting to the database.");
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        new createUserAccWIndow().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -180,13 +284,14 @@ public class newaccountwindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ID;
+    private javax.swing.JTextArea address;
+    private javax.swing.JComboBox<String> branch;
+    private javax.swing.JComboBox<String> day;
+    private javax.swing.JTextField email;
     private javax.swing.JTextField first_name;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -200,10 +305,9 @@ public class newaccountwindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField last_name;
+    private javax.swing.JComboBox<String> month;
+    private javax.swing.JTextField phn_num;
+    private javax.swing.JComboBox<String> year;
     // End of variables declaration//GEN-END:variables
 }
