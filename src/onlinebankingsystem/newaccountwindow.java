@@ -5,10 +5,7 @@
 package onlinebankingsystem;
 
 
-import java.sql.*;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +21,23 @@ public class newaccountwindow extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+    
+    
+
+    // Regular expression for a basic email validation
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+        public static boolean isValidEmail(String email) {
+            if (email == null || email.isEmpty()) {
+                return false;
+            }
+            return Pattern.matches(EMAIL_REGEX, email);
+        }
+
+    
+        
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,44 +222,24 @@ public class newaccountwindow extends javax.swing.JFrame {
         
         java.sql.Date b_day_DB = java.sql.Date.valueOf(b_day);
         
-        try (Connection conn = DatabaseCon.getConnection()) {
-            if (conn == null) {
-                JOptionPane.showMessageDialog(this, "Failed to connect to the database.");
-                return;
+        if (firstName.isEmpty() || lastName.isEmpty() || id.isEmpty() || number.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Fields Cannot be Empty !!!");
+        }
+        else{
+            
+            if(!isValidEmail(Email)){
+                JOptionPane.showMessageDialog(this, "Invalid Email !!!");
             }
             
-            String sql = "Insert into users (first_name, last_name, nic, phone_number, email, address, DOB) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            if(number.length()!=10){
+                JOptionPane.showMessageDialog(this, "Invalid phone number !!!");
+            }
             
-            PreparedStatement stmt = conn.prepareStatement(sql);
             
             
-            stmt.setString(1, firstName);
-            stmt.setString(2, lastName);
-            stmt.setString(3, id);
-            stmt.setString(4, number);
-            stmt.setString(5, Email);
-            stmt.setString(6, Address);
-            stmt.setDate(7, b_day_DB);
-
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(this, "User added successfully.");
-
-        } catch (SQLException ex) {
-            Logger.getLogger(loginWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "An error occurred while connecting to the database.");
+            new createUserAccWIndow().setVisible(true);
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        new createUserAccWIndow().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
